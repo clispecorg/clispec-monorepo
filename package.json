@@ -1,0 +1,12 @@
+{
+  "name": "clispec-monorepo",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["clispec", "cli", "spec", "specification", "org", "organisation"],
+  "author": "",
+  "license": "ISC"
+}

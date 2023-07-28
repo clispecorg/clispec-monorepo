@@ -1,0 +1,159 @@
+{
+  "$id": "https://clispec.org/schema/draft/clispec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "JSON schema for defining CLI interfaces",
+  "type": "object",
+  "$defs": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "simpleType": {
+      "enum": [
+        "string",
+        "number",
+        "integer",
+        "boolean"
+      ]
+    },
+    "option": {
+      "type": "object",
+      "description": "Опциональный параметр",
+      "required": [
+        "type"
+      ],
+      "x-additionalProperties": false,
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "Короткое описание параметра"
+        },
+        "description": {
+          "type": "string",
+          "description": "Длинное описание параметра"
+        },
+        "type": {
+          "oneOf": [
+            {
+              "description": "Фиксированное перечисление значений",
+              "type": "array",
+              "items": "string",
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            {
+              "description": "Простой тип значения",
+              "$ref": "#/$defs/simpleType"
+            },
+            {
+              "description": "",
+              "type": "object",
+              "properties": {
+                "type": {
+                  "$ref": "#/$defs/simpleType"
+                },
+                "boolean": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "xxx-variadic": {
+          "$comment": "TODO: Указать эту информацию в поле type, а также negatable",
+          "type": "boolean",
+          "description": "Параметр допускает задание нескольких значений"
+        },
+        "long": {
+          "type": "string",
+          "description": "Длинное имя опции: --<более одного символа>",
+          "pattern": "^--[^-].+"
+        },
+        "short": {
+          "type": "string",
+          "description": "Короткое имя опции: -<один символ>",
+          "pattern": "^-[^-]$"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Обязательный параметр",
+          "default": false
+        },
+        "optionalValue": {
+          "type": "boolean",
+          "description": "Если true, значение можно не задавать, тогда типом значения будет boolean",
+          "default": false
+        },
+        "negatable": {
+          "type": "boolean",
+          "description": "Разрешить для boolean значений использовать приставку --no"
+        },
+        "variadic": {
+          "type": "boolean",
+          "description": "Параметр допускает задание нескольких значений"
+        },
+        "standalone": {
+          "type": "boolean",
+          "description": "Автономный параметр не может быть использован совместно с другими параметрами. Например --version или --help",
+          "default": false
+        },
+        "env": {
+          "type": "string",
+          "description": "Имя переменной окружения",
+          "pattern": "^[A-Z0-9_]+"
+        },
+        "default": {
+          "type": {},
+          "description": "Значение по-умолчанию"
+        },
+        "pattern": {
+          "type": "string",
+          "description": "Регулярное выражение для значения",
+          "format": "regex"
+        },
+        "hidden": {
+          "type": "boolean",
+          "description": "Скрытый параметр, не отображается в справке"
+        }
+      }
+    }
+  },
+  "required": [
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Имя команды",
+      "pattern": ".+"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Короткое описание команды"
+    },
+    "description": {
+      "type": "string",
+      "description": "Длинное описание команды"
+    },
+    "usage": {
+      "type": "string",
+      "description": "Строка описывающая как вызывать команду"
+    },
+    "hidden": {
+      "type": "boolean",
+      "description": "Скрытая команда, не отображается в справке"
+    },
+    "commands": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "$ref": "#"
+        }
+      }
+    },
+    "options": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "$ref": "#/$defs/option"
+        }
+      }
+    }
+  }
+}

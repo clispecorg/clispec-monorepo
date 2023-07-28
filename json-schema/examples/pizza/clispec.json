@@ -1,0 +1,38 @@
+{
+  "$schema": "../../clispec.schema.json",
+  "name": "pizza",
+  "summary": "Git version control system CLI",
+  "options": {
+    "name": {
+      "name": "help",
+      "summary": "Получить справку",
+      "type": "boolean",
+      "short": "-h",
+      "long": "--help",
+      "standalone": true
+    },
+    "version": {
+      "name": "version",
+      "summary": "Получить версию",
+      "type": "boolean",
+      "short": "-v",
+      "long": "--version",
+      "standalone": true
+    }
+  },
+  "commands": {
+    "order": {
+      "summary": "Создать новый заказ на пиццу",
+      "options": {
+        "cheese": {
+          "type": "string",
+          "optionalValue": true,
+          "negatable": true,
+          "summary": "Сыр",
+          "long": "--cheese",
+          "short": "-c"
+        }
+      }
+    }
+  }
+}

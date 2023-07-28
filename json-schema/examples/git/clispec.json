@@ -1,0 +1,49 @@
+{
+  "$schema": "../../clispec.schema.json",
+  "name": "git",
+  "description": "Git version control system CLI",
+  "options": {
+    "name": {
+      "name": "help",
+      "description": "Получить справку",
+      "type": "boolean",
+      "short": "-h",
+      "long": "--help",
+      "standalone": true
+    },
+    "version": {
+      "name": "version",
+      "description": "Получить версию",
+      "type": "boolean",
+      "short": "-v",
+      "long": "--version",
+      "standalone": true
+    }
+  },
+  "commands": {
+    "fetch": {
+      "description": "Download objects and refs from another repository",
+      "options": {
+        "append": {
+          "name": "append",
+          "type": "boolean",
+          "default": false,
+          "description": "Append ref names and object names of fetched refs to the existing contents of .git/FETCH_HEAD. Without this option old data in .git/FETCH_HEAD will be overwritten."
+        },
+        "depth": {
+          "name": "depth",
+          "type": "integer",
+          "description": "Limit fetching to the specified number of commits from the tip of each remote branch history."
+        },
+        "negotiationTip": {
+          "long": "--negotiation-tip",
+          "env": "GIT_NEGOTIATION_TIP",
+          "type": [
+            "commit",
+            "glob"
+          ]
+        }
+      }
+    }
+  }
+}
